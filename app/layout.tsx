@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Inter, Barlow, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "next-themes";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,9 +12,9 @@ const inter = Inter({
 
 const barlowFont = Barlow({
   subsets: ["latin"],
-  weight: ['500', '700'],
+  weight: ["500", "700"],
   variable: "--font-barlow",
-})
+});
 
 export const metadata: Metadata = {
   title: "GoShop",
@@ -26,8 +27,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body className={ `${inter.className} ${barlowFont.variable}`}>{children}</body>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(geist.variable, barlowFont.variable)}
+    >
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
