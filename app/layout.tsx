@@ -1,8 +1,16 @@
+//NEXT JS
 import type { Metadata } from "next";
 import { Inter, Barlow, Geist } from "next/font/google";
+
+//Global css
 import "./globals.css";
 import { cn } from "@/lib/utils";
+
+//Theme Provider
 import { ThemeProvider } from "next-themes";
+
+//CLERK PROVIDER
+import { ClerkProvider } from '@clerk/nextjs'
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -27,6 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+     <ClerkProvider>
     <html
       lang="en"
       suppressHydrationWarning
@@ -43,5 +52,6 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
